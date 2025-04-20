@@ -1,9 +1,9 @@
 
 export interface Material {
   name: string;
+  materialId: string; // Reference to the pricing ID
   unit: string;
   quantityPerSqMeter: number;
-  pricePerUnit: number;
   percentageOfPhase: number;
 }
 

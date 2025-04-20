@@ -1,4 +1,3 @@
-
 import { BuildingType } from "../../types/buildingTypes";
 
 const threeBedroomBungalow: BuildingType = {
@@ -15,30 +14,30 @@ const threeBedroomBungalow: BuildingType = {
       materials: [
         {
           name: "Cement",
+          materialId: "cement",
           unit: "Bag",
           quantityPerSqMeter: 0.5,
-          pricePerUnit: 5000,
           percentageOfPhase: 0.3
         },
         {
           name: "Sand",
+          materialId: "sand",
           unit: "Ton",
           quantityPerSqMeter: 0.2,
-          pricePerUnit: 15000,
           percentageOfPhase: 0.2
         },
         {
           name: "Gravel",
+          materialId: "gravel",
           unit: "Ton",
           quantityPerSqMeter: 0.3,
-          pricePerUnit: 18000,
           percentageOfPhase: 0.3
         },
         {
           name: "Reinforcement Bars",
+          materialId: "reinforcementBars",
           unit: "Ton",
           quantityPerSqMeter: 0.02,
-          pricePerUnit: 450000,
           percentageOfPhase: 0.2
         }
       ]
@@ -50,30 +49,30 @@ const threeBedroomBungalow: BuildingType = {
       materials: [
         {
           name: "Cement",
+          materialId: "cement",
           unit: "Bag",
           quantityPerSqMeter: 0.8,
-          pricePerUnit: 5000,
           percentageOfPhase: 0.25
         },
         {
           name: "Blocks",
+          materialId: "blocks",
           unit: "Piece",
           quantityPerSqMeter: 15,
-          pricePerUnit: 400,
           percentageOfPhase: 0.35
         },
         {
           name: "Sand",
+          materialId: "sand",
           unit: "Ton",
           quantityPerSqMeter: 0.3,
-          pricePerUnit: 15000,
           percentageOfPhase: 0.15
         },
         {
           name: "Reinforcement Bars",
+          materialId: "reinforcementBars",
           unit: "Ton",
           quantityPerSqMeter: 0.03,
-          pricePerUnit: 450000,
           percentageOfPhase: 0.25
         }
       ]
@@ -85,30 +84,30 @@ const threeBedroomBungalow: BuildingType = {
       materials: [
         {
           name: "Roofing Sheets",
+          materialId: "roofingSheets",
           unit: "Bundle",
           quantityPerSqMeter: 0.1,
-          pricePerUnit: 80000,
           percentageOfPhase: 0.45
         },
         {
           name: "Wood",
+          materialId: "wood",
           unit: "Piece",
           quantityPerSqMeter: 2,
-          pricePerUnit: 3000,
           percentageOfPhase: 0.30
         },
         {
           name: "Nails and Fasteners",
+          materialId: "nailsFasteners",
           unit: "Kg",
           quantityPerSqMeter: 0.2,
-          pricePerUnit: 2000,
           percentageOfPhase: 0.05
         },
         {
           name: "Ceiling Materials",
+          materialId: "ceilingMaterials",
           unit: "Sq. Meter",
           quantityPerSqMeter: 1,
-          pricePerUnit: 3500,
           percentageOfPhase: 0.20
         }
       ]
@@ -120,44 +119,44 @@ const threeBedroomBungalow: BuildingType = {
       materials: [
         {
           name: "Tiles",
+          materialId: "tiles",
           unit: "Sq. Meter",
           quantityPerSqMeter: 1,
-          pricePerUnit: 4500,
           percentageOfPhase: 0.25
         },
         {
           name: "Paint",
+          materialId: "paint",
           unit: "Liter",
           quantityPerSqMeter: 0.5,
-          pricePerUnit: 3000,
           percentageOfPhase: 0.20
         },
         {
           name: "Doors",
+          materialId: "doors",
           unit: "Piece",
           quantityPerSqMeter: 0.08,
-          pricePerUnit: 35000,
           percentageOfPhase: 0.20
         },
         {
           name: "Windows",
+          materialId: "windows",
           unit: "Piece",
           quantityPerSqMeter: 0.05,
-          pricePerUnit: 45000,
           percentageOfPhase: 0.15
         },
         {
           name: "Sanitary Fixtures",
+          materialId: "sanitaryFixtures",
           unit: "Set",
           quantityPerSqMeter: 0.025,
-          pricePerUnit: 80000,
           percentageOfPhase: 0.10
         },
         {
           name: "Electrical Fixtures",
+          materialId: "electricalFixtures",
           unit: "Point",
           quantityPerSqMeter: 0.4,
-          pricePerUnit: 3500,
           percentageOfPhase: 0.10
         }
       ]

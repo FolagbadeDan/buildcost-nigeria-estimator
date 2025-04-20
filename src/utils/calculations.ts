@@ -3,6 +3,7 @@ import { BuildingType } from "../data/buildingTypes";
 import { FenceType, GateOption, SecurityFeature } from "../data/fencingTypes";
 import { Location } from "../data/locations";
 import { QualityLevel } from "../data/qualityLevels";
+import pricing, { getMaterialPrice } from "../data/pricing";
 
 interface BuildingEstimationParams {
   buildingType: BuildingType;
@@ -82,7 +83,9 @@ export const calculateBuildingEstimation = ({
     
     const materials = phase.materials.map(material => {
       const quantity = material.quantityPerSqMeter * adjustedSize;
-      const materialCost = quantity * material.pricePerUnit;
+      // Get the current price from our centralized pricing system
+      const currentPrice = getMaterialPrice(material.materialId);
+      const materialCost = quantity * currentPrice;
       
       return {
         name: material.name,
