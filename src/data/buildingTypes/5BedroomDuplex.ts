@@ -1,4 +1,5 @@
-import { BuildingType } from "../buildingTypes";
+
+import { BuildingType } from "../../types/buildingTypes";
 
 const fiveBedroomDuplex: BuildingType = {
   id: "5-bedroom-duplex",

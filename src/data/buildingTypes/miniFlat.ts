@@ -1,5 +1,5 @@
 
-import { BuildingType } from "../buildingTypes";
+import { BuildingType } from "../../types/buildingTypes";
 
 const miniFlat: BuildingType = {
   id: "mini-flat",

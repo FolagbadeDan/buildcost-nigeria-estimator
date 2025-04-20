@@ -1,5 +1,5 @@
 
-import { BuildingType } from "../buildingTypes";
+import { BuildingType } from "../../types/buildingTypes";
 
 import threeBedroomBungalow from "./3BedroomBungalow";
 import fiveBedroomDuplex from "./5BedroomDuplex";
@@ -17,5 +17,4 @@ const buildingTypes: BuildingType[] = [
   terrace,
 ];
 
-export { BuildingType };
 export default buildingTypes;
