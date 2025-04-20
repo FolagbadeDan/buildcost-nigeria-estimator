@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import {
   Card,
@@ -37,6 +36,7 @@ import { locations } from "@/data/locations";
 import { qualityLevels } from "@/data/qualityLevels";
 import { FencingEstimation, calculateFencingEstimation, calculatePerimeter } from "@/utils/calculations";
 import FencingEstimationResult from "./FencingEstimationResult";
+import { fenceTypeImages } from "@/utils/imageMappings";
 
 const FencingCalculatorSchema = z.object({
   fenceTypeId: z.string(),
@@ -95,13 +95,11 @@ const FencingCalculator: React.FC = () => {
       return;
     }
 
-    // Calculate perimeter based on input method
     const perimeter =
       values.inputMethod === "dimensions" && values.length && values.width
         ? calculatePerimeter(values.length, values.width)
         : values.perimeter || 0;
 
-    // Get selected gates
     const selectedGates = values.gates
       .filter((gate) => gate.quantity > 0)
       .map((gate) => {
@@ -112,7 +110,6 @@ const FencingCalculator: React.FC = () => {
         };
       });
 
-    // Get selected security features
     const selectedSecurityFeatures = securityFeatures.filter((feature) =>
       values.securityFeatureIds.includes(feature.id)
     );
@@ -161,7 +158,17 @@ const FencingCalculator: React.FC = () => {
                       <SelectContent>
                         {fenceTypes.map((type) => (
                           <SelectItem key={type.id} value={type.id}>
-                            {type.name}
+                            <div className="flex items-center gap-3">
+                              <img
+                                src={fenceTypeImages[type.id]}
+                                alt={type.name}
+                                className="w-12 h-12 object-cover rounded-md border"
+                              />
+                              <div>
+                                <div className="font-semibold">{type.name}</div>
+                                <div className="text-xs text-gray-500">{type.description}</div>
+                              </div>
+                            </div>
                           </SelectItem>
                         ))}
                       </SelectContent>

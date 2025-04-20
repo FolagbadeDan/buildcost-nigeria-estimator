@@ -1,5 +1,4 @@
-
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Card,
   CardContent,
@@ -33,12 +32,13 @@ import { locations } from "@/data/locations";
 import { qualityLevels } from "@/data/qualityLevels";
 import { BuildingEstimation, calculateBuildingEstimation, formatCurrency } from "@/utils/calculations";
 import BuildingEstimationResult from "./BuildingEstimationResult";
+import { buildingTypeImages } from "@/utils/imageMappings";
 
 const BuildingCalculatorSchema = z.object({
   buildingTypeId: z.string(),
   locationId: z.string(),
   qualityLevelId: z.string(),
-  sizeAdjustment: z.number().min(0.8).max(1.5),
+  sizeSqMeters: z.number().min(15).max(1500),
 });
 
 type BuildingCalculatorValues = z.infer<typeof BuildingCalculatorSchema>;
@@ -46,15 +46,25 @@ type BuildingCalculatorValues = z.infer<typeof BuildingCalculatorSchema>;
 const BuildingCalculator: React.FC = () => {
   const [estimation, setEstimation] = useState<BuildingEstimation | null>(null);
 
+  const defaultBuildingType = buildingTypes[0];
+
   const form = useForm<BuildingCalculatorValues>({
     resolver: zodResolver(BuildingCalculatorSchema),
     defaultValues: {
-      buildingTypeId: "3-bedroom-bungalow",
+      buildingTypeId: defaultBuildingType.id,
       locationId: "lagos",
       qualityLevelId: "standard",
-      sizeAdjustment: 1,
+      sizeSqMeters: defaultBuildingType.baseSqMeters,
     },
   });
+
+  const buildingTypeId = form.watch("buildingTypeId");
+  useEffect(() => {
+    const selectedType = buildingTypes.find((t) => t.id === buildingTypeId);
+    if (selectedType && form.getValues("sizeSqMeters") !== selectedType.baseSqMeters) {
+      form.setValue("sizeSqMeters", selectedType.baseSqMeters);
+    }
+  }, [buildingTypeId]);
 
   const onSubmit = (values: BuildingCalculatorValues) => {
     const buildingType = buildingTypes.find(
@@ -73,7 +83,7 @@ const BuildingCalculator: React.FC = () => {
       buildingType,
       location,
       qualityLevel,
-      sizeAdjustment: values.sizeAdjustment,
+      sizeAdjustment: values.sizeSqMeters / buildingType.baseSqMeters,
     });
 
     setEstimation(result);
@@ -98,7 +108,9 @@ const BuildingCalculator: React.FC = () => {
                   <FormItem>
                     <FormLabel>Building Type</FormLabel>
                     <Select
-                      onValueChange={field.onChange}
+                      onValueChange={(val) => {
+                        field.onChange(val);
+                      }}
                       defaultValue={field.value}
                     >
                       <FormControl>
@@ -109,7 +121,17 @@ const BuildingCalculator: React.FC = () => {
                       <SelectContent>
                         {buildingTypes.map((type) => (
                           <SelectItem key={type.id} value={type.id}>
-                            {type.name}
+                            <div className="flex items-center gap-3">
+                              <img
+                                src={buildingTypeImages[type.id]}
+                                alt={type.name}
+                                className="w-12 h-12 object-cover rounded-md border"
+                              />
+                              <div>
+                                <div className="font-semibold">{type.name}</div>
+                                <div className="text-xs text-gray-500">{type.description}</div>
+                              </div>
+                            </div>
                           </SelectItem>
                         ))}
                       </SelectContent>
@@ -186,31 +208,26 @@ const BuildingCalculator: React.FC = () => {
 
               <FormField
                 control={form.control}
-                name="sizeAdjustment"
+                name="sizeSqMeters"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Size Adjustment</FormLabel>
+                    <FormLabel>
+                      Size (square meters)
+                    </FormLabel>
                     <FormControl>
-                      <div className="space-y-2">
-                        <Slider
-                          min={0.8}
-                          max={1.5}
-                          step={0.05}
-                          value={[field.value]}
-                          onValueChange={(value) => field.onChange(value[0])}
-                        />
-                        <div className="flex justify-between">
-                          <span>-20%</span>
-                          <span className="font-medium">
-                            {(field.value * 100 - 100).toFixed(0)}%
-                          </span>
-                          <span>+50%</span>
-                        </div>
-                      </div>
+                      <input
+                        type="number"
+                        min={15}
+                        max={1500}
+                        className="w-full border rounded-md px-3 py-2"
+                        {...field}
+                      />
                     </FormControl>
                     <FormDescription>
-                      Adjust the size of your building relative to the standard
-                      dimensions
+                      Enter the total size of your building in square meters.<br/>
+                      <span className="text-xs text-gray-500">
+                        Standard size for selected type: {buildingTypes.find((t) => t.id === buildingTypeId)?.baseSqMeters} sqm
+                      </span>
                     </FormDescription>
                     <FormMessage />
                   </FormItem>
