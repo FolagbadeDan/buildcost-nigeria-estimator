@@ -24,6 +24,7 @@ import {
   Cell
 } from "recharts";
 import { FileText } from "lucide-react";
+import { MaterialPricing } from "@/types/pricingTypes";
 
 interface FencingEstimationResultProps {
   estimation: FencingEstimation;
@@ -210,7 +211,9 @@ const FencingEstimationResult: React.FC<FencingEstimationResultProps> = ({
                       let lastUpdated = "";
                       try {
                         const pricingData = require("@/data/pricing").default;
-                        const found = Object.values(pricingData.materials).find((m: any) => m.name === material.name);
+                        const found = Object.values(pricingData.materials).find(
+                          (m) => (m as MaterialPricing).name === material.name
+                        ) as MaterialPricing | undefined;
                         lastUpdated = found?.lastUpdated ?? "";
                       } catch (err) {
                         lastUpdated = "";

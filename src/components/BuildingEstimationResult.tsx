@@ -1,3 +1,4 @@
+
 import React from "react";
 import {
   Card,
@@ -24,6 +25,7 @@ import {
   Cell
 } from "recharts";
 import { FileText } from "lucide-react";
+import { MaterialPricing } from "@/types/pricingTypes";
 
 interface BuildingEstimationResultProps {
   estimation: BuildingEstimation;
@@ -190,7 +192,9 @@ const BuildingEstimationResult: React.FC<BuildingEstimationResultProps> = ({
                         let lastUpdated = "";
                         try {
                           const pricingData = require("@/data/pricing").default;
-                          const found = Object.values(pricingData.materials).find((m: any) => m.name === material.name);
+                          const found = Object.values(pricingData.materials).find(
+                            (m) => (m as MaterialPricing).name === material.name
+                          ) as MaterialPricing | undefined;
                           lastUpdated = found?.lastUpdated ?? "";
                         } catch (err) {
                           lastUpdated = "";
