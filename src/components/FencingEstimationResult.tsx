@@ -196,25 +196,45 @@ const FencingEstimationResult: React.FC<FencingEstimationResultProps> = ({
                       >
                         Cost
                       </th>
+                      <th
+                        scope="col"
+                        className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                      >
+                        <span>Date</span>
+                      </th>
                     </tr>
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
-                    {estimation.materials.map((material) => (
-                      <tr key={material.name}>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                          {material.name}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                          {formatNumber(material.quantity)}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                          {material.unit}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                          {formatCurrency(material.cost)}
-                        </td>
-                      </tr>
-                    ))}
+                    {estimation.materials.map((material) => {
+                      // Grab lastUpdated by matching name in pricing
+                      let lastUpdated = "";
+                      try {
+                        const pricingData = require("@/data/pricing").default;
+                        const found = Object.values(pricingData.materials).find((m: any) => m.name === material.name);
+                        lastUpdated = found?.lastUpdated ?? "";
+                      } catch (err) {
+                        lastUpdated = "";
+                      }
+                      return (
+                        <tr key={material.name}>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                            {material.name}
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            {formatNumber(material.quantity)}
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            {material.unit}
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            {formatCurrency(material.cost)}
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-xs text-gray-400 italic">
+                            {lastUpdated ? `Price as at ${lastUpdated}` : ""}
+                          </td>
+                        </tr>
+                      );
+                    })}
                   </tbody>
                 </table>
               </div>

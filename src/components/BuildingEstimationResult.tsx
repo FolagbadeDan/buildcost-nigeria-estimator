@@ -1,4 +1,3 @@
-
 import React from "react";
 import {
   Card,
@@ -40,15 +39,11 @@ const BuildingEstimationResult: React.FC<BuildingEstimationResultProps> = ({
     value: phase.cost,
   }));
 
-  // Function to handle the export of the PDF
   const handleExportPDF = () => {
-    // This would be implemented with a PDF generation library
     alert("PDF export functionality would be implemented here");
   };
 
-  // Function to handle sending the estimate via email
   const handleEmailEstimate = () => {
-    // This would be implemented with an email service
     alert("Email functionality would be implemented here");
   };
 
@@ -184,34 +179,50 @@ const BuildingEstimationResult: React.FC<BuildingEstimationResultProps> = ({
                       <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Cost
                       </th>
+                      <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        <span>Date</span>
+                      </th>
                     </tr>
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
                     {estimation.phases.flatMap((phase) =>
-                      phase.materials.map((material, index) => (
-                        <tr key={`${phase.name}-${material.name}`}>
-                          {index === 0 && (
-                            <td
-                              rowSpan={phase.materials.length}
-                              className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"
-                            >
-                              {phase.name}
+                      phase.materials.map((material, index) => {
+                        let lastUpdated = "";
+                        try {
+                          const pricingData = require("@/data/pricing").default;
+                          const found = Object.values(pricingData.materials).find((m: any) => m.name === material.name);
+                          lastUpdated = found?.lastUpdated ?? "";
+                        } catch (err) {
+                          lastUpdated = "";
+                        }
+                        return (
+                          <tr key={`${phase.name}-${material.name}`}>
+                            {index === 0 && (
+                              <td
+                                rowSpan={phase.materials.length}
+                                className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"
+                              >
+                                {phase.name}
+                              </td>
+                            )}
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                              {material.name}
                             </td>
-                          )}
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                            {material.name}
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                            {formatNumber(material.quantity)}
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                            {material.unit}
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                            {formatCurrency(material.cost)}
-                          </td>
-                        </tr>
-                      ))
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                              {formatNumber(material.quantity)}
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                              {material.unit}
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                              {formatCurrency(material.cost)}
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap text-xs text-gray-400 italic">
+                              {lastUpdated ? `Price as at ${lastUpdated}` : ""}
+                            </td>
+                          </tr>
+                        );
+                      })
                     )}
                   </tbody>
                 </table>
