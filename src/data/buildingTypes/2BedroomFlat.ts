@@ -13,10 +13,10 @@ const twoBedroomFlat: BuildingType = {
       name: "Foundation",
       percentageOfTotal: 0.13,
       materials: [
-        { name: "Cement", unit: "Bag", quantityPerSqMeter: 0.4, pricePerUnit: 5000, percentageOfPhase: 0.35 },
-        { name: "Sand", unit: "Ton", quantityPerSqMeter: 0.15, pricePerUnit: 15000, percentageOfPhase: 0.25 },
-        { name: "Gravel", unit: "Ton", quantityPerSqMeter: 0.2, pricePerUnit: 18000, percentageOfPhase: 0.2 },
-        { name: "Reinforcement Bars", unit: "Ton", quantityPerSqMeter: 0.01, pricePerUnit: 450000, percentageOfPhase: 0.2 }
+        { name: "Cement", materialId: "cement", unit: "Bag", quantityPerSqMeter: 0.4, percentageOfPhase: 0.35 },
+        { name: "Sand", materialId: "sand", unit: "Ton", quantityPerSqMeter: 0.15, percentageOfPhase: 0.25 },
+        { name: "Gravel", materialId: "gravel", unit: "Ton", quantityPerSqMeter: 0.2, percentageOfPhase: 0.2 },
+        { name: "Reinforcement Bars", materialId: "reinforcementBars", unit: "Ton", quantityPerSqMeter: 0.01, percentageOfPhase: 0.2 }
       ]
     },
     {
@@ -24,10 +24,10 @@ const twoBedroomFlat: BuildingType = {
       name: "Structure",
       percentageOfTotal: 0.40,
       materials: [
-        { name: "Cement", unit: "Bag", quantityPerSqMeter: 0.7, pricePerUnit: 5000, percentageOfPhase: 0.3 },
-        { name: "Blocks", unit: "Piece", quantityPerSqMeter: 10, pricePerUnit: 400, percentageOfPhase: 0.4 },
-        { name: "Sand", unit: "Ton", quantityPerSqMeter: 0.18, pricePerUnit: 15000, percentageOfPhase: 0.15 },
-        { name: "Reinforcement Bars", unit: "Ton", quantityPerSqMeter: 0.01, pricePerUnit: 450000, percentageOfPhase: 0.15 }
+        { name: "Cement", materialId: "cement", unit: "Bag", quantityPerSqMeter: 0.7, percentageOfPhase: 0.3 },
+        { name: "Blocks", materialId: "blocks", unit: "Piece", quantityPerSqMeter: 10, percentageOfPhase: 0.4 },
+        { name: "Sand", materialId: "sand", unit: "Ton", quantityPerSqMeter: 0.18, percentageOfPhase: 0.15 },
+        { name: "Reinforcement Bars", materialId: "reinforcementBars", unit: "Ton", quantityPerSqMeter: 0.01, percentageOfPhase: 0.15 }
       ]
     },
     {
@@ -35,10 +35,10 @@ const twoBedroomFlat: BuildingType = {
       name: "Roofing",
       percentageOfTotal: 0.13,
       materials: [
-        { name: "Roofing Sheets", unit: "Bundle", quantityPerSqMeter: 0.08, pricePerUnit: 80000, percentageOfPhase: 0.5 },
-        { name: "Wood", unit: "Piece", quantityPerSqMeter: 1.1, pricePerUnit: 3000, percentageOfPhase: 0.25 },
-        { name: "Nails and Fasteners", unit: "Kg", quantityPerSqMeter: 0.1, pricePerUnit: 2000, percentageOfPhase: 0.05 },
-        { name: "Ceiling Materials", unit: "Sq. Meter", quantityPerSqMeter: 1, pricePerUnit: 3000, percentageOfPhase: 0.2 }
+        { name: "Roofing Sheets", materialId: "roofingSheets", unit: "Bundle", quantityPerSqMeter: 0.08, percentageOfPhase: 0.5 },
+        { name: "Wood", materialId: "wood", unit: "Piece", quantityPerSqMeter: 1.1, percentageOfPhase: 0.25 },
+        { name: "Nails and Fasteners", materialId: "nailsFasteners", unit: "Kg", quantityPerSqMeter: 0.1, percentageOfPhase: 0.05 },
+        { name: "Ceiling Materials", materialId: "ceilingMaterials", unit: "Sq. Meter", quantityPerSqMeter: 1, percentageOfPhase: 0.2 }
       ]
     },
     {
@@ -46,12 +46,12 @@ const twoBedroomFlat: BuildingType = {
       name: "Finishing",
       percentageOfTotal: 0.34,
       materials: [
-        { name: "Tiles", unit: "Sq. Meter", quantityPerSqMeter: 1, pricePerUnit: 4000, percentageOfPhase: 0.25 },
-        { name: "Paint", unit: "Liter", quantityPerSqMeter: 0.5, pricePerUnit: 2500, percentageOfPhase: 0.19 },
-        { name: "Doors", unit: "Piece", quantityPerSqMeter: 0.05, pricePerUnit: 25000, percentageOfPhase: 0.18 },
-        { name: "Windows", unit: "Piece", quantityPerSqMeter: 0.04, pricePerUnit: 30000, percentageOfPhase: 0.13 },
-        { name: "Sanitary Fixtures", unit: "Set", quantityPerSqMeter: 0.014, pricePerUnit: 60000, percentageOfPhase: 0.15 },
-        { name: "Electrical Fixtures", unit: "Point", quantityPerSqMeter: 0.2, pricePerUnit: 2500, percentageOfPhase: 0.1 }
+        { name: "Tiles", materialId: "tiles", unit: "Sq. Meter", quantityPerSqMeter: 1, percentageOfPhase: 0.25 },
+        { name: "Paint", materialId: "paint", unit: "Liter", quantityPerSqMeter: 0.5, percentageOfPhase: 0.19 },
+        { name: "Doors", materialId: "doors", unit: "Piece", quantityPerSqMeter: 0.05, percentageOfPhase: 0.18 },
+        { name: "Windows", materialId: "windows", unit: "Piece", quantityPerSqMeter: 0.04, percentageOfPhase: 0.13 },
+        { name: "Sanitary Fixtures", materialId: "sanitaryFixtures", unit: "Set", quantityPerSqMeter: 0.014, percentageOfPhase: 0.15 },
+        { name: "Electrical Fixtures", materialId: "electricalFixtures", unit: "Point", quantityPerSqMeter: 0.2, percentageOfPhase: 0.1 }
       ]
     }
   ]
